@@ -3,13 +3,12 @@
 // this file could use a bit of cleanup yet to be more maintainable
 
 
-// function searchMain($search, $includeContext) {
-function searchMain($search) {
+function searchMain($search, $includeContext) {
 	global $allFolders;
 	$allFolders = array(MD_BASE_PATH);
 	getFolderListIn(MD_BASE_PATH);
 	$allMDFiles = getAllMDFiles();
-	$resultArray = searchFilesForString($allMDFiles, $search);
+	$resultArray = searchFilesForString($allMDFiles, $search, $includeContext);
 	$mdResults = compileResultsToString($resultArray);
 	return $mdResults;
 }
@@ -63,7 +62,7 @@ function doesFileContainString($file, $string) {
 }
 
 
-function searchFilesForString($allMDFiles, $string) {
+function searchFilesForString($allMDFiles, $string, $includeContext) {
 	$resultArray = array();
 	foreach ($allMDFiles as $thisFile) {
 		$thisResultArray = doesFileContainString($thisFile, $string); //iterate through all files and search for $string
@@ -71,7 +70,7 @@ function searchFilesForString($allMDFiles, $string) {
 			$thisMDResult = markResultDown($thisFile); //convert the file to a markdown link
 			$resultArray[] = $thisMDResult;
 			foreach ($thisResultArray as $thisResult) { //add context if there is any
-				if ($thisResult == 1) { //check to see if it is just dummy result TODO: or if context is even turned on
+				if ($thisResult == 1 || $includeContext != 1) { //check to see if it is just dummy result TODO: or if context is even turned on
 					continue;
 				}
 				$resultContext = "\t* `$thisResult`\n";
