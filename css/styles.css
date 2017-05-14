@@ -17,7 +17,7 @@ body {
 }
 
 .btn-default {
-	
+
 	float: right;
 }
 
@@ -113,7 +113,7 @@ ul {
 }
 
 ol {
-	list-style: decimal outside none;	
+	list-style: decimal outside none;
 }
 
 code,pre {
@@ -134,9 +134,6 @@ pre code {
 	max-width: 100%;
 }
 
-pre {
-	/*margin-left: 20px;*/
-}
 
 em {
 	font-style: italic;
@@ -147,4 +144,16 @@ strong {
 	font-weight: bold;
 	font-style: italic;
 	color: hsl(109, 25%, 50%);
+}
+
+#livesearch {
+	clear: both;
+	float: right;
+	max-width: 500px;
+	z-index: 100;
+	background-color: black;
+	position: relative;
+	top: 0;
+	right: 0;
+	display: inline-block;
 }

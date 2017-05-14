@@ -6,6 +6,7 @@ This is a read only method of viewing a repository full of md documents, powered
 ### Features
 * Live conversion of md to html
 * built in search
+* LIVE search
 * works with an existing md repository
 
 ### Use cases
@@ -18,6 +19,7 @@ This is a read only method of viewing a repository full of md documents, powered
 	1. `git submodule init`
 	1. `git submodule update`
 1. copy `config-sample.php` to `config.php` and customize the settings within
+1. (optional) if using a custom css file, perhaps edit it to support the live search div (you can base it from the *styles.css* included)
 1. navigate to the webserver address where you cloned into
 	* `http://serveraddress/markdownrepo`
 

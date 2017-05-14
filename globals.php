@@ -60,8 +60,9 @@ function printSearchHTML() {
 	print '<form class="form-inline headerSearch" action="search.php" method="get">
 		<button type="submit" class="btn btn-default">Go</button>
 		<div class="form-group">
-			<input type="search" class="form-control" name="search" placeholder="search" value="">
+			<input type="search" class="form-control" name="search" placeholder="search" value="" onkeyup="showResult(this.value)" onsearch="showResult(this.value)"  >
 		</div>
+		<div id="livesearch"></div>
 	</form>
 ';
 }
@@ -79,6 +80,29 @@ function printHeader($baseTitle, $extraTitle) { //also returns generated page ti
 	print "<html>\n<head>\n<title>$pageTitle</title>\n";
 	print '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" media="screen" type="text/css" href="' . HTML_CSS_URL . '">
+		<script>
+		function showResult(str) {
+		  if (str.length==0) {
+		    document.getElementById("livesearch").innerHTML="";
+		    document.getElementById("livesearch").style.border="0px";
+		    return;
+		  }
+		  if (window.XMLHttpRequest) {
+		    // code for IE7+, Firefox, Chrome, Opera, Safari
+		    xmlhttp=new XMLHttpRequest();
+		  } else {  // code for IE6, IE5
+		    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		  xmlhttp.onreadystatechange=function() {
+		    if (this.readyState==4 && this.status==200) {
+		      document.getElementById("livesearch").innerHTML=this.responseText;
+		      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+		    }
+		  }
+		  xmlhttp.open("GET","livesearch.php?search="+str,true);
+		  xmlhttp.send();
+		}
+		</script>
 	</head>
 	<body>';
 
