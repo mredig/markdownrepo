@@ -28,6 +28,28 @@ function checkGET(){
 	if (!empty($_GET['search'])) {
 		$search = $_GET['search'];
 	}
+
+	checkOptions();
+}
+
+function checkOptions(){
+	global $currentDirectory, $file, $search;
+
+	if (!empty(getopt('f:'))) { // php index.php -f=filename
+		$opts = getopt('f:');
+		$file = $opts['f'];
+	}
+
+	if (!empty(getopt('s:'))) { // php search.php -s=search
+		$opts = getopt('s:');
+		$search = $opts['s'];
+	}
+
+	if (!empty(getopt('d:'))) { // php index.php -d=currentDirectory
+		$opts = getopt('d:');
+		$currentDirectory = $opts['d'];
+	}
+
 }
 
 function sanitizeURL($sanitize) {
