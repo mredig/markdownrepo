@@ -146,7 +146,7 @@ strong {
 	color: hsl(109, 25%, 50%);
 }
 
-#livesearch {
+#markdownRepoLiveSearch {
 	clear: both;
 	float: right;
 	max-width: 500px;

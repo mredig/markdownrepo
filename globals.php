@@ -60,9 +60,9 @@ function printSearchHTML() {
 	print '<form class="form-inline headerSearch" action="search.php" method="get">
 		<button type="submit" class="btn btn-default">Go</button>
 		<div class="form-group">
-			<input type="search" class="form-control" name="search" placeholder="search" value="" onkeyup="showResult(this.value)" onsearch="showResult(this.value)"  >
+			<input type="search" class="form-control" name="search" placeholder="search" value="" onkeyup="showResult(this.value)" onsearch="showResult(this.value)" autocomplete="off" >
 		</div>
-		<div id="livesearch"></div>
+		<div id="markdownRepoLiveSearch"></div>
 	</form>
 ';
 }
@@ -83,8 +83,8 @@ function printHeader($baseTitle, $extraTitle) { //also returns generated page ti
 		<script>
 		function showResult(str) {
 		  if (str.length==0) {
-		    document.getElementById("livesearch").innerHTML="";
-		    document.getElementById("livesearch").style.border="0px";
+		    document.getElementById("markdownRepoLiveSearch").innerHTML="";
+		    document.getElementById("markdownRepoLiveSearch").style.border="0px";
 		    return;
 		  }
 		  if (window.XMLHttpRequest) {
@@ -95,8 +95,8 @@ function printHeader($baseTitle, $extraTitle) { //also returns generated page ti
 		  }
 		  xmlhttp.onreadystatechange=function() {
 		    if (this.readyState==4 && this.status==200) {
-		      document.getElementById("livesearch").innerHTML=this.responseText;
-		      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+		      document.getElementById("markdownRepoLiveSearch").innerHTML=this.responseText;
+		      document.getElementById("markdownRepoLiveSearch").style.border="1px solid #A5ACB2";
 		    }
 		  }
 		  xmlhttp.open("GET","livesearch.php?search="+str,true);
