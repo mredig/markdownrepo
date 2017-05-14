@@ -23,9 +23,11 @@ function compileResultsToString($resultArray) {
 }
 
 function markResultDown($thisResult) {
-	$basePath = MD_BASE_PATH; //convert to variable as we need to do some light editing to it
-	$basePath = preg_replace("/\//", "\\/", $basePath); //escape any forward slashes
-	$thisResult = preg_replace("/$basePath/", "", $thisResult); // remove base path from link
+	// $basePath = MD_BASE_PATH; //convert to variable as we need to do some light editing to it
+	// $basePath = preg_replace("/\//", "\\/", $basePath); //escape any forward slashes
+	// $thisResult = preg_replace("/$basePath/", "", $thisResult); // remove base path from link
+
+	$thisResult = removeBaseFromPath($thisResult);
 	preg_match("/^(.*\/)([^\/]*.md)$/", $thisResult, $output_array); //extract filename and directory
 	$fileName = $output_array[2];
 	$directory = $output_array[1];
@@ -37,6 +39,13 @@ function markResultDown($thisResult) {
 	return $thisMDResult;
 }
 
+function removeBaseFromPath($path) {
+	$basePath = MD_BASE_PATH; //convert to variable as we need to do some light editing to it
+	$basePath = preg_replace("/\//", "\\/", $basePath); //escape any forward slashes
+	$noBasePath = preg_replace("/$basePath/", "", $path); // remove base path from link
+	return $noBasePath;
+}
+
 function doesFileContainString($file, $string) {
 	$fileHandle = fopen($file, "r") or die("Unable to open file: $file!");
 	$md = fread($fileHandle,filesize($file));
@@ -44,8 +53,8 @@ function doesFileContainString($file, $string) {
 
 	$md = preg_replace("/[\*|\`|\[|\]|\#]/im", "", $md); //remove special characters before search
 
-
-	$fnMatch = preg_match("/$string/im", $file, $output_array); //TODO: change this to remove the MD_BASE_PATH - checks if filename contains $string
+	$noBasePath = removeBaseFromPath($file);
+	$fnMatch = preg_match("/$string/im", $noBasePath, $output_array); 
 	$match = preg_match("/.*$string.*/im", $md, $regexArray); // check if $file contains $string
 	$match = $match | $fnMatch; // Consider it matched whether it was in filename or file contents
 
@@ -70,7 +79,7 @@ function searchFilesForString($allMDFiles, $string, $includeContext) {
 			$thisMDResult = markResultDown($thisFile); //convert the file to a markdown link
 			$resultArray[] = $thisMDResult;
 			foreach ($thisResultArray as $thisResult) { //add context if there is any
-				if ($thisResult == 1 || $includeContext != 1) { //check to see if it is just dummy result TODO: or if context is even turned on
+				if ($thisResult == 1 || $includeContext != 1) { //check to see if it is just dummy result or if context is even turned on
 					continue;
 				}
 				$resultContext = "\t* `$thisResult`\n";

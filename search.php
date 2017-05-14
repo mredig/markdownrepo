@@ -25,7 +25,7 @@ print "$mdOutput";
 
 function getSearchResults($search) {
 
-	$breadcrumbs = "\n[Home](/?directory=/)\n";
+	$breadcrumbs = "\n[Home](/?directory=/) /\n";
 
 	$mdResults = "# Search results for: $search\n";
 	$mdResults .= searchMain($search, 1);
