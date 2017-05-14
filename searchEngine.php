@@ -15,9 +15,13 @@ function searchMain($search, $includeContext) {
 
 
 function compileResultsToString($resultArray) {
+	global $search;
 	$mdResults = "";
 	foreach ($resultArray as $thisResult) {
 		$mdResults .= $thisResult;
+	}
+	if ($mdResults == "") {
+		$mdResults = "No results found for '$search'.\n";
 	}
 	return $mdResults;
 }
@@ -54,7 +58,7 @@ function doesFileContainString($file, $string) {
 	$md = preg_replace("/[\*|\`|\[|\]|\#]/im", "", $md); //remove special characters before search
 
 	$noBasePath = removeBaseFromPath($file);
-	$fnMatch = preg_match("/$string/im", $noBasePath, $output_array); 
+	$fnMatch = preg_match("/$string/im", $noBasePath, $output_array);
 	$match = preg_match("/.*$string.*/im", $md, $regexArray); // check if $file contains $string
 	$match = $match | $fnMatch; // Consider it matched whether it was in filename or file contents
 
