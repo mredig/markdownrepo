@@ -14,7 +14,9 @@ This is a read only method of viewing a repository full of md documents, powered
 
 ### Installation
 1. clone repo into a webserver with php that also has access to the markdown files (this can be a mounted fileshare)
-	* `git clone https://github.com/mredig/markdownrepo`
+	1. `git clone https://github.com/mredig/markdownrepo`
+	1. `git submodule init`
+	1. `git submodule update`
 1. copy `config-sample.php` to `config.php` and customize the settings within
 1. navigate to the webserver address where you cloned into
 	* `http://serveraddress/markdownrepo`
