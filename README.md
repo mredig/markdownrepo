@@ -8,6 +8,10 @@ This is a read only method of viewing a repository full of md documents, powered
 * built in search
 * works with an existing md repository
 
+### Use cases
+* want to easily document procedures for yourself/others
+* and more!
+
 ### Installation
 1. clone repo into a webserver with php that also has access to the markdown files (this can be a mounted fileshare)
 	* `git clone https://github.com/mredig/markdownrepo`
@@ -20,4 +24,3 @@ This is a read only method of viewing a repository full of md documents, powered
 * browser
 * markdown files
 	* file extension must be lowercase
-* ![example pic](example.png)
