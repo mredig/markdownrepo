@@ -4,7 +4,7 @@
 define('MD_BASE_PATH', '.');
 
 //URL path to where the css file are located for the md repo (optional)
-define('HTML_CSS_URL', 'css/styles.css');
+define('HTML_CSS_URL', '/css/modern.css');
 
 //database title
 define('DATA_STORE_NAME', 'MD Documentation');

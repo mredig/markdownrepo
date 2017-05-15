@@ -1,10 +1,8 @@
-/* @override http://localhost:8888/css/styles.css */
-
 @import url('reset.css');
 
 
 html {
-	background-color: #1a1a1a;
+	background-color: #d3c5bc;
 }
 
 body {
@@ -12,8 +10,8 @@ body {
 	margin-top: 20px;
 	margin-right: auto;
 	margin-left: auto;
-	color: #ffffff;
-	font: 15pt Georgia, "Times New Roman", Times, serif;
+	color: #373528;
+	font: 15pt "Bookman, Garamond, Times, serif";
 }
 
 .btn-default {
@@ -31,12 +29,13 @@ a:hover {
 	text-decoration: underline;
 }
 a:active {
-	color: #007f00;
+	color: #645731;
 	text-decoration: none;
 }
 a {
-	color: #1cff3b;
+	color: #868472;
 	text-decoration: none;
+	font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 p {
@@ -52,8 +51,6 @@ h1 {
 	border-bottom-style: solid;
 	border-bottom-width: 3px;
 	border-left-width: 3px;
-	border-right-style: solid;
-	border-right-width: 3px;
 	margin: .6563em 0;
 	padding-bottom: 6px;
 }
@@ -117,14 +114,12 @@ ol {
 }
 
 code,pre {
-	border-style: solid;
-	border-width: 3px;
 	font-family: "Courier New", Courier, mono;
 	padding: 3px;
 	margin: 3px;
-	color: #256735;
-	background-color: #ffffff;
-	border-radius: 5px;
+	color: #ffffff;
+	background-color: #d8cec8;
+	border-radius: 10px;
 	display: inline-block;
 	max-width: 100%;
 }
@@ -137,13 +132,14 @@ pre code {
 
 em {
 	font-style: italic;
-	color: #a3e196;
+	opacity: 1;
+	color: #562020;
 }
 
 strong {
 	font-weight: bold;
 	font-style: italic;
-	color: hsl(109, 25%, 50%);
+	color: #000;
 }
 
 #markdownRepoLiveSearch {
@@ -151,7 +147,7 @@ strong {
 	float: right;
 	max-width: 500px;
 	z-index: 100;
-	background-color: black;
+	background-color: #d3c5bc;
 	position: relative;
 	top: 0;
 	right: 0;

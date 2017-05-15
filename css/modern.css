@@ -1,0 +1,156 @@
+/* @override http://localhost:8888/css/styles.css
+	http://localhost:8888/css/greenterminal.css */
+
+@import url('reset.css');
+
+
+html {
+	background-color: white;
+}
+
+body {
+	width: 900px;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-left: auto;
+	font: 15pt "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.btn-default {
+
+	float: right;
+}
+
+input.form-control {
+	float: right;
+}
+
+
+
+a:hover {
+	text-decoration: underline;
+}
+a:active {
+	color: #645731;
+	text-decoration: none;
+}
+a {
+	text-decoration: none;
+	color: #151887;
+	font-family: "Helvetica Neue Light", "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+p {
+	margin-bottom: 5px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	margin-top: 10px;
+}
+
+h1 {
+	font-size: 3em;
+	border-bottom-style: solid;
+	border-bottom-width: 3px;
+	border-left-width: 3px;
+	margin: .6563em 0;
+	padding-bottom: 6px;
+}
+
+h2 {
+	font-size: 2em;
+	margin: .875em 0;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+}
+
+h3 {
+	font-size: 1.5em;
+	margin: 1em 0;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+}
+
+h4 {
+    font-size: 1.2857em;
+    margin: 1.1667em 0;
+}
+
+h5 {
+    font-size: 1.15em;
+    margin: 1.3em 0;
+
+}
+
+h6 {
+    font-size: 1em;
+    margin: 1.5em 0;
+
+}
+
+ul ul,ul ol {
+    margin-bottom: .4em;
+}
+
+ul,ol {
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
+ol li {
+	margin-bottom: 2px;
+	margin-left: 1.5em;
+}
+
+ul li {
+	margin-bottom: 2px;
+	margin-left: 1.5em;
+}
+
+ul {
+	list-style: disc outside none;
+}
+
+ol {
+	list-style: decimal outside none;
+}
+
+code,pre {
+	font-family: "Courier New", Courier, mono;
+	padding: 7px;
+	margin: 3px;
+	border-radius: 20px;
+	display: inline-block;
+	max-width: 100%;
+	border-style: solid;
+	border-width: 1px;
+}
+
+pre code {
+	border-style: none;
+	max-width: 100%;
+}
+
+
+em {
+	font-style: italic;
+	opacity: 1;
+	font-family: "Helvetica Neue UltraLight", "Helvetica Neue Light", "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+strong {
+	font-weight: bold;
+	font-style: italic;
+}
+
+#markdownRepoLiveSearch {
+	clear: both;
+	float: right;
+	max-width: 500px;
+	z-index: 100;
+	background-color: white;
+	position: relative;
+	top: 0;
+	right: 0;
+	display: inline-block;
+}
