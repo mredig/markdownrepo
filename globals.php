@@ -113,4 +113,10 @@ function getFileModDate($filename) {
 	return "this document last modified: " . date ("F d Y H:i", filemtime($filename));
 }
 
+function addFileName($md, $file) {
+	$file = preg_replace("/(.*)\.md/i", "$1", $file);
+	$newMD = "# $file\n\n$md";
+	return $newMD;
+}
+
 ?>

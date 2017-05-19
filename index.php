@@ -20,6 +20,9 @@ if ($file != "") { // check if there is a file specified - if so, display conten
 
 	// print_r($md);
 
+	if (SHOW_FILENAME) {
+		$md = addFileName($md, $file);
+	}
 	$md = processImageLinks($md, $apparentDirectory);
 } else {
 	$allFilesInCD = glob("*");
@@ -68,7 +71,7 @@ function addBreadcrumbs($filename, $md, $cd) {
 		$breadcrumbs .= "[$linkString](?directory=$pathString) / ";
 	}
 
-	if ($filename != "") {
+	if ($filename != "" && SHOW_TIMESTAMP) {
 		$dateString = getFileModDate($filename);
 		$dateString = "<p class='timestamp'>$dateString</p>\n";
 	}
