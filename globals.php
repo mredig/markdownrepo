@@ -109,4 +109,8 @@ function printHeader($baseTitle, $extraTitle) { //also returns generated page ti
 	return $pageTitle;
 }
 
+function getFileModDate($filename) {
+	return "this document last modified: " . date ("F d Y H:i", filemtime($filename));
+}
+
 ?>

@@ -29,7 +29,7 @@ if ($file != "") { // check if there is a file specified - if so, display conten
 	$fileSection = getFileList($mdFilesInCD, $apparentDirectory);
 	$md = "# " . DATA_STORE_NAME . "\n" . $folderSection . $fileSection;
 }
-$md = addBreadcrumbs($md, $apparentDirectory);
+$md = addBreadcrumbs($file, $md, $apparentDirectory);
 $mdOutput = $Parsedown->text($md);
 print "$mdOutput";
 
@@ -40,7 +40,7 @@ function processImageLinks($md, $apparentDirectory) {
 	return $newLine;
 }
 
-function addBreadcrumbs($md, $cd) {
+function addBreadcrumbs($filename, $md, $cd) {
 	$directory = $cd;
 
 	$split = explode("/", $directory); // create array called "split" from the directory string, separated by the "/"
@@ -68,7 +68,12 @@ function addBreadcrumbs($md, $cd) {
 		$breadcrumbs .= "[$linkString](?directory=$pathString) / ";
 	}
 
-	$breadcrumbs = $breadcrumbs . "\n$md\n" . $breadcrumbs; //surround the imported md document with the breadcrumbs
+	if ($filename != "") {
+		$dateString = getFileModDate($filename);
+		$dateString = "<p class='timestamp'>$dateString</p>\n";
+	}
+
+	$breadcrumbs = $breadcrumbs . "\n$md\n" . $dateString . $breadcrumbs; //surround the imported md document with the breadcrumbs
 
 	return $breadcrumbs;
 }

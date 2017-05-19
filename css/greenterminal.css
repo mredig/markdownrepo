@@ -156,3 +156,9 @@ strong {
 	display: inline-block;
 	padding-right: 20px;
 }
+
+.timestamp {
+	font: 0.65em "Courier New", Courier, mono;
+	clear: both;
+	float: right;
+}

@@ -1,4 +1,4 @@
-/* @override http://localhost:8888/css/styles.css
+/* @override 
 	http://localhost:8888/css/greenterminal.css */
 
 @import url('reset.css');
@@ -154,4 +154,10 @@ strong {
 	right: 0;
 	display: inline-block;
 	padding-right: 20px;
+}
+
+.timestamp {
+	font: 0.65em "Courier New", Courier, mono;
+	clear: both;
+	float: right;
 }
