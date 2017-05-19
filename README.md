@@ -8,6 +8,7 @@ This is a read only method of viewing a repository full of md documents, powered
 * built in search
 * LIVE search
 * works with an existing md repository
+* can display file modification date
 
 ### Use cases
 * want to easily document procedures for yourself/others
