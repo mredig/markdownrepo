@@ -7,9 +7,7 @@ html {
 
 body {
 	width: 900px;
-	margin-top: 20px;
-	margin-right: auto;
-	margin-left: auto;
+	margin: 20px auto 200px;
 	color: #ffffff;
 	font: 15pt Georgia, "Times New Roman", Times, serif;
 }
