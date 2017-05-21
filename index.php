@@ -2,6 +2,9 @@
 require 'parsedown/Parsedown.php';
 require 'globals.php';
 
+// error_reporting(E_ALL); //enable these two lines for debugging info printed to browser
+// ini_set('display_errors', 1);
+
 chdir(MD_BASE_PATH);
 global $currentDirectory, $file, $apparentDirectory;
 checkGET();
@@ -45,8 +48,28 @@ function processImageLinks($md, $apparentDirectory) {
 
 function addWrappers($filename, $md, $cd) {
 
+	//permalink
+	if (ENABLE_PERMALINKS && $filename != "") {
+		$hash = checkPermalinkExists($md);
+		if ($hash == "0") {
+			$genhash = generatePermalinkHash($md);
+			$hashComment = generatePermalinkComment($genhash);
+			$md = $hashComment . $md;
+			saveFileInCD($filename, $md);
+			$hash = $genhash;
+		}
+
+		// if ($hash != "0") {
+		// 	$md = stripPermalink($md);
+		// 	saveFileInCD($filename, $md);
+		// }
+		$permalink = generatePermlink($hash);
+	}
+
+
 	//breadcrumbs
 	$directory = $cd;
+	$breadcrumbs = ""; //var declaration
 
 	$split = explode("/", $directory); // create array called "split" from the directory string, separated by the "/"
 	$c = count($split);
@@ -79,7 +102,9 @@ function addWrappers($filename, $md, $cd) {
 		$dateString = "<p class='mdrTimestamp'>$dateString</p>\n";
 	}
 
-	$breadcrumbs = $breadcrumbs . "\n$md\n" . $dateString . $breadcrumbs; //surround the imported md document with the breadcrumbs
+
+
+	$breadcrumbs = $breadcrumbs . "\n$md\n" . $dateString . $permalink . $breadcrumbs; //surround the imported md document with the breadcrumbs
 
 	return $breadcrumbs;
 }
