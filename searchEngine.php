@@ -19,7 +19,6 @@ function searchPermaLinks($perma) {
 	getFolderListIn(MD_BASE_PATH);
 	$allMDFiles = getAllMDFiles();
 	$resultArray = searchFilesForString($allMDFiles, $perma, 0, 1); //returns array of arrays
-	// print_r($resultArray);
 	$firstResultArray = $resultArray[0]; //only care about first result (shouldn't result in more than one anyway)
 	$fileUrl = getFileURL($firstResultArray['directory'], $firstResultArray['filename']);
 	$metatag = formatPermalinkMetaTag($fileUrl);
@@ -126,8 +125,6 @@ function searchFilesForString($allMDFiles, $string, $includeContext, $permalink 
 	foreach ($allMDFiles as $thisFile) {
 		$thisResultArray = doesFileContainString($thisFile, $string, $permalink); //iterate through all files and search for $string
 		if (count($thisResultArray) > 0) { //doesFileContainString returns an array, so a result is positive if it has any members on the array
-			// print "$thisFile - $string: thisResultArray returns greater than 0: ";
-			// print_r($thisResultArray);
 			$fileDirArray = extractDirectoryAndFile($thisFile);
 			if ($permalink) { //if searching for permalink don't do other stuff
 				$resultArray[] = $fileDirArray;
