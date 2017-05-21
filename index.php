@@ -45,6 +45,25 @@ function processImageLinks($md, $apparentDirectory) {
 
 function addWrappers($filename, $md, $cd) {
 
+	//permalink
+	if (ENABLE_PERMALINKS && $filename != "") {
+		$hash = checkPermalinkExists($md);
+		if ($hash == "0") {
+			$genhash = generatePermalinkHash($md);
+			$hashComment = generatePermalinkComment($genhash);
+			$md = $hashComment . $md;
+			saveFileInCD($filename, $md);
+			$hash = $genhash;
+		}
+
+		// if ($hash != "0") {
+		// 	$md = stripPermalink($md);
+		// 	saveFileInCD($filename, $md);
+		// }
+		$permalink = generatePermlink($hash);
+	}
+
+
 	//breadcrumbs
 	$directory = $cd;
 
@@ -79,7 +98,9 @@ function addWrappers($filename, $md, $cd) {
 		$dateString = "<p class='mdrTimestamp'>$dateString</p>\n";
 	}
 
-	$breadcrumbs = $breadcrumbs . "\n$md\n" . $dateString . $breadcrumbs; //surround the imported md document with the breadcrumbs
+
+
+	$breadcrumbs = $breadcrumbs . "\n$md\n" . $dateString . $permalink . $breadcrumbs; //surround the imported md document with the breadcrumbs
 
 	return $breadcrumbs;
 }

@@ -79,7 +79,7 @@ function printHeader($baseTitle, $extraTitle) { //also returns generated page ti
 
 	print "<html>\n<head>\n<title>$pageTitle</title>\n";
 	print '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" media="screen" type="text/css" href="' . HTML_CSS_URL . '">
+		<link rel="stylesheet" media="screen" type="text/css" href="' . HTML_CSS_URL . '?v=1">
 		<script>
 		function showResult(str) {
 		  if (str.length==0) {
@@ -123,4 +123,58 @@ function addFileName($md, $file) {
 	return $newMD;
 }
 
+
+// permalink stuff
+
+function checkPermalinkExists($md) {
+	preg_match("/\A<!-- permalink: ([0-9a-f]+) DO NOT DELETE OR EDIT THIS LINE -->/", $md, $output_array);
+	if (count($output_array) > 0) {
+		return $output_array[1];
+	} else {
+		return 0;
+	}
+}
+
+function stripPermalink($md) {
+	$noPerma = preg_replace("/\A<!-- permalink: ([0-9a-f]+) DO NOT DELETE OR EDIT THIS LINE -->\s/m", "", $md);
+	return $noPerma;
+}
+
+function generatePermalinkHash($md) {
+	$rando = rand();
+	$saltedMD = $md . $rando; // just to be sure it's a unique hash
+	$hash = hash("md5", $saltedMD);
+	return $hash;
+}
+
+function generatePermalinkComment($hash) {
+	$commentString = "<!-- permalink: $hash DO NOT DELETE OR EDIT THIS LINE -->\n";
+	return $commentString;
+}
+
+function generatePermlink($hash) {
+	$hashLink = "<p class='mdrPermalink'><a href='permalink.php?perma=$hash'>permalink</a></p>\n";
+	return $hashLink;
+}
+
+function saveFileInCD($file, $md, $withOutMod = 1) {
+	// try to make mod without affecting time mod date
+
+	//this code is commented so i dont accidentally use it without reviewing it
+
+	if ($withOutMod) {
+		$prevTimestamp = filemtime($file);
+	}
+	// print "UNIX Timestamp: $prevTimestamp\n";
+
+	$fileHandle = fopen($file, "w") or die("Unable to open file: $file!");
+	$md = fwrite($fileHandle,$md);
+	fclose($fileHandle);
+
+	if ($withOutMod) {
+		touch($file, $prevTimestamp); //set back to original mod time
+	}
+}
+
+//need to create permalink.php - have it use searchEngine.php to find the file requested and then redirect
 ?>
