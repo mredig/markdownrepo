@@ -32,7 +32,7 @@ if ($file != "") { // check if there is a file specified - if so, display conten
 	$fileSection = getFileList($mdFilesInCD, $apparentDirectory);
 	$md = "# " . DATA_STORE_NAME . "\n" . $folderSection . $fileSection;
 }
-$md = addBreadcrumbs($file, $md, $apparentDirectory);
+$md = addWrappers($file, $md, $apparentDirectory);
 $mdOutput = $Parsedown->text($md);
 print "$mdOutput";
 
@@ -43,7 +43,9 @@ function processImageLinks($md, $apparentDirectory) {
 	return $newLine;
 }
 
-function addBreadcrumbs($filename, $md, $cd) {
+function addWrappers($filename, $md, $cd) {
+
+	//breadcrumbs
 	$directory = $cd;
 
 	$split = explode("/", $directory); // create array called "split" from the directory string, separated by the "/"
@@ -71,6 +73,7 @@ function addBreadcrumbs($filename, $md, $cd) {
 		$breadcrumbs .= "[$linkString](?directory=$pathString) / ";
 	}
 
+	//file mod date
 	if ($filename != "" && SHOW_TIMESTAMP) {
 		$dateString = getFileModDate($filename);
 		$dateString = "<p class='mdrTimestamp'>$dateString</p>\n";
