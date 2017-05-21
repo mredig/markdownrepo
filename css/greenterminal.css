@@ -155,7 +155,7 @@ strong {
 	padding-right: 20px;
 }
 
-.timestamp {
+.mdrTimestamp {
 	font: 0.65em "Courier New", Courier, mono;
 	clear: both;
 	float: right;

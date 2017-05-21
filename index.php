@@ -73,7 +73,7 @@ function addBreadcrumbs($filename, $md, $cd) {
 
 	if ($filename != "" && SHOW_TIMESTAMP) {
 		$dateString = getFileModDate($filename);
-		$dateString = "<p class='timestamp'>$dateString</p>\n";
+		$dateString = "<p class='mdrTimestamp'>$dateString</p>\n";
 	}
 
 	$breadcrumbs = $breadcrumbs . "\n$md\n" . $dateString . $breadcrumbs; //surround the imported md document with the breadcrumbs

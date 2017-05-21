@@ -109,9 +109,13 @@ function printHeader($baseTitle, $extraTitle) { //also returns generated page ti
 	return $pageTitle;
 }
 
+//timestamp
+
 function getFileModDate($filename) {
 	return "this document last modified: " . date ("F d Y H:i", filemtime($filename));
 }
+
+//filename header
 
 function addFileName($md, $file) {
 	$file = preg_replace("/(.*)\.md/i", "$1", $file);

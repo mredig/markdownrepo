@@ -15,4 +15,8 @@ define('SHOW_TIMESTAMP', 1);
 //1 for showing filename as the header of the document, 0 for not
 define('SHOW_FILENAME', 1);
 
+//permalinks - will require write access to the given directory (generates a unique hash for each file so files can be linked even after getting moved around and saves to the file)
+define('ENABLE_PERMALINKS', 1);
+
+
 ?>
