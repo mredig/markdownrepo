@@ -15,7 +15,7 @@ function setApparentDirectory($currentDirectory) {
 
 
 function checkGET(){
-	global $currentDirectory, $file, $search;
+	global $currentDirectory, $file, $search, $perma;
 	if (!empty($_GET['file'])) {
 		$file = $_GET['file'];
 	}
@@ -29,11 +29,15 @@ function checkGET(){
 		$search = $_GET['search'];
 	}
 
+	if (!empty($_GET['perma'])) {
+		$perma = $_GET['perma'];
+	}
+
 	checkOptions();
 }
 
 function checkOptions(){
-	global $currentDirectory, $file, $search;
+	global $currentDirectory, $file, $search, $perma;
 
 	if (!empty(getopt('f:'))) { // php index.php -f=filename
 		$opts = getopt('f:');
@@ -50,6 +54,10 @@ function checkOptions(){
 		$currentDirectory = $opts['d'];
 	}
 
+	if (!empty(getopt('p:'))) { // php index.php -p=permalinkhash
+		$opts = getopt('p:');
+		$perma = $opts['p'];
+	}
 }
 
 function sanitizeURL($sanitize) {
@@ -68,7 +76,7 @@ function printSearchHTML() {
 }
 
 
-function printHeader($baseTitle, $extraTitle) { //also returns generated page title for use elsewhere
+function printHeader($baseTitle, $extraTitle, $extraHeaderTags = "") { //also returns generated page title for use elsewhere
 	$pageTitle = DATA_STORE_NAME;
 	if ($baseTitle != "") {
 		$pageTitle = $baseTitle;
@@ -79,6 +87,7 @@ function printHeader($baseTitle, $extraTitle) { //also returns generated page ti
 
 	print "<html>\n<head>\n<title>$pageTitle</title>\n";
 	print '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		' . $extraHeaderTags . '
 		<link rel="stylesheet" media="screen" type="text/css" href="' . HTML_CSS_URL . '?v=1">
 		<script>
 		function showResult(str) {
@@ -153,7 +162,8 @@ function generatePermalinkComment($hash) {
 }
 
 function generatePermlink($hash) {
-	$hashLink = "<p class='mdrPermalink'><a href='permalink.php?perma=$hash'>permalink</a></p>\n";
+	$hashLink = "<p class='mdrPermalink'><a href='/permalink.php?perma=$hash'>permalink</a></p>\n";
+	// $hashLink = "<p class='mdrPermalink'>[permalink](/permalink.php?perma=$hash)</p>\n";
 	return $hashLink;
 }
 

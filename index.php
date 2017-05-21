@@ -2,6 +2,9 @@
 require 'parsedown/Parsedown.php';
 require 'globals.php';
 
+// error_reporting(E_ALL); //enable these two lines for debugging info printed to browser
+// ini_set('display_errors', 1);
+
 chdir(MD_BASE_PATH);
 global $currentDirectory, $file, $apparentDirectory;
 checkGET();
@@ -66,6 +69,7 @@ function addWrappers($filename, $md, $cd) {
 
 	//breadcrumbs
 	$directory = $cd;
+	$breadcrumbs = ""; //var declaration
 
 	$split = explode("/", $directory); // create array called "split" from the directory string, separated by the "/"
 	$c = count($split);
