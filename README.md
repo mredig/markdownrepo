@@ -9,6 +9,7 @@ This is a read only method of viewing a repository full of md documents, powered
 * LIVE search
 * works with an existing md repository
 * can display file modification date
+* permalink functionality without using a database or changing file modification dates
 
 ### Use cases
 * want to easily document procedures for yourself/others
@@ -20,7 +21,10 @@ This is a read only method of viewing a repository full of md documents, powered
 	1. `git submodule init`
 	1. `git submodule update`
 1. copy `config-sample.php` to `config.php` and customize the settings within
-1. (optional) if using a custom css file, perhaps edit it to support the live search div (you can base it from the *styles.css* included)
+1. (optional) if using a custom css file, perhaps edit it to support the following selectors (you can base it from the included css files)
+	* `#markdownRepoLiveSearch`
+	* `.mdrTimestamp`
+	* `.mdrPermalink`
 1. navigate to the webserver address where you cloned into
 	* `http://serveraddress/markdownrepo`
 
