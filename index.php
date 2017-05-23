@@ -42,7 +42,8 @@ print "$mdOutput";
 
 //functions go here
 function processImageLinks($md, $apparentDirectory) {
-	$newLine = preg_replace("/^(.*)\((.*\.(png|jpg))\)(.*)/im", "$1(/image.php?directory=$apparentDirectory&file=$2)$4", $md);
+	$urlApparentDirectory = sanitizeURL($apparentDirectory);
+	$newLine = preg_replace("/^(.*)\((.*\.(png|jpg))\)(.*)/im", "$1(/image.php?directory=$urlApparentDirectory&file=$2)$4", $md);
 	return $newLine;
 }
 
