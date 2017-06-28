@@ -33,3 +33,9 @@ This is a read only method of viewing a repository full of md documents, powered
 * browser
 * markdown files
 	* file extension must be lowercase
+
+
+
+#### To do
+* create pop up link (next to permalink that makes it easy to pop out into new window)
+* sort live search results
