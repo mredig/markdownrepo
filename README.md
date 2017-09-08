@@ -33,3 +33,8 @@ This is a read only method of viewing a repository full of md documents, powered
 * browser
 * markdown files
 	* file extension must be lowercase
+
+
+### Todo
+* alphabetize search results
+* refactor permalink to happen before any processing if it doesnt exist in doc yet (ruining image links)
