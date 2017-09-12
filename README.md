@@ -29,7 +29,7 @@ This is a read only method of viewing a repository full of md documents, powered
 	* `http://serveraddress/markdownrepo`
 
 ### Requirements
-* server running php
+* server running php (and php-mbstring)
 * browser
 * markdown files
 	* file extension must be lowercase
