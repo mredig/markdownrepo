@@ -113,7 +113,7 @@ function addWrappers($filename, $md, $cd) {
 
 
 function getFileList($filesInCD, $currentDirectory) {
-	$string = "\n### Files:\n";
+
 	foreach($filesInCD as $thisFile) {
 		$dirLink = sanitizeURL($currentDirectory);
 		$fileLink = sanitizeURL($thisFile);
@@ -123,11 +123,16 @@ function getFileList($filesInCD, $currentDirectory) {
 		$thisFileString = "* [$thisFilePretty](?file=$fileLink&directory=$dirLink)\n";
 		$string = $string . $thisFileString;
 	}
+
+	if (!empty($string)) {
+		$string = "\n### Files:\n$string";
+	}
+
 	return $string;
 }
 
 function getFolderList($allFilesInCD, $currentDirectory) {
-	$string = "### Folders:\n";
+
 	foreach($allFilesInCD as $thisFile) {
 		if ($thisFile == "assets") {
 			continue;
@@ -137,6 +142,11 @@ function getFolderList($allFilesInCD, $currentDirectory) {
 			$string .= "#### [$thisFile](?directory=$dirLink)\n";
 		}
 	}
+
+	if (!empty($string)) {
+		$string = "### Folders:\n$string";
+	}
+
 	return $string;
 }
 
