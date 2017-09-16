@@ -37,5 +37,4 @@ This is a read only method of viewing a repository full of md documents, powered
 
 ### Todo
 * alphabetize search results
-* refactor permalink to happen before any processing if it doesnt exist in doc yet (ruining image links)
 * create pop up link (next to permalink that makes it easy to pop out into new window)

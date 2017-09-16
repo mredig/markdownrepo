@@ -16,12 +16,16 @@ printSearchHTML();
 
 // generate page contents
 $Parsedown = new Parsedown(); //create Parsdown object
-if ($file != "") { // check if there is a file specified - if so, display contents. if not, show directory contents
+if (!empty($file)) { // check if there is a file specified - if so, display contents. if not, show directory contents
 	$fileHandle = fopen($file, "r") or die("Unable to open file: $file!");
 	$md = fread($fileHandle,filesize($file));
 	fclose($fileHandle);
 
 	// print_r($md);
+
+	if (ENABLE_PERMALINKS) {
+		$permalink = checkForPermaLink($md, $file);
+	}
 
 	if (SHOW_FILENAME) {
 		$md = addFileName($md, $file);
@@ -35,7 +39,7 @@ if ($file != "") { // check if there is a file specified - if so, display conten
 	$fileSection = getFileList($mdFilesInCD, $apparentDirectory);
 	$md = "# " . DATA_STORE_NAME . "\n" . $folderSection . $fileSection;
 }
-$md = addWrappers($file, $md, $apparentDirectory);
+$md = addWrappers($file, $md, $apparentDirectory, $permalink);
 $mdOutput = $Parsedown->text($md);
 print "$mdOutput";
 
@@ -47,10 +51,9 @@ function processImageLinks($md, $apparentDirectory) {
 	return $newLine;
 }
 
-function addWrappers($filename, $md, $cd) {
-
+function checkForPermaLink($md, $filename) {
 	//permalink
-	if (ENABLE_PERMALINKS && $filename != "") {
+	if (ENABLE_PERMALINKS && !empty($filename)) {
 		$hash = checkPermalinkExists($md);
 		if ($hash == "0") {
 			$genhash = generatePermalinkHash($md);
@@ -66,7 +69,10 @@ function addWrappers($filename, $md, $cd) {
 		// }
 		$permalink = generatePermlink($hash);
 	}
+	return $permalink;
+}
 
+function addWrappers($filename, $md, $cd, $permalink) {
 
 	//breadcrumbs
 	$directory = $cd;

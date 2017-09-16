@@ -186,5 +186,4 @@ function saveFileInCD($file, $md, $withOutMod = 1) {
 	}
 }
 
-//need to create permalink.php - have it use searchEngine.php to find the file requested and then redirect
 ?>
