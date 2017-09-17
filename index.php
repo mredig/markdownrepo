@@ -17,7 +17,7 @@ printSearchHTML();
 // generate page contents
 $Parsedown = new Parsedown(); //create Parsdown object
 if (!empty($file)) { // check if there is a file specified - if so, display contents. if not, show directory contents
-	$fileHandle = fopen($file, "r") or die("Unable to open file: $file!");
+	$fileHandle = fopen($file, "r") or die("Unable to open file (main index page): $file!");
 	$md = fread($fileHandle,filesize($file));
 	fclose($fileHandle);
 
