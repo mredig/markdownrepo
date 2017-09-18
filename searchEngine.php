@@ -9,11 +9,8 @@ function searchMain($search, $includeContext) {
 	$allFolders = array(MD_BASE_PATH);
 	getFolderListIn(MD_BASE_PATH);
 	$allMDFiles = getAllMDFiles();
-	$resultArray = searchFilesForString($allMDFiles, $search, $includeContext); //returns md string
-	if (!$includeContext) { //easy fix
-		natcasesort($resultArray);
-	}
-	$mdResults = compileResultsToString($resultArray);
+	$resultArray = searchFilesForString($allMDFiles, $search); //returns md string
+	$mdResults = compileSearchResultsToString($resultArray, $includeContext);
 	return $mdResults;
 }
 
@@ -35,26 +32,30 @@ function searchPermaLinks($hash) {
 
 //// iterate through all files and look for strings
 
-function searchFilesForString($allMDFiles, $string, $includeContext) { //returns different things based on context (permalink vs not)
-	$resultArray = array();
+function searchFilesForString($allMDFiles, $string) { //returns different things based on context (permalink vs not)
+	$objectArray = array();
 	foreach ($allMDFiles as $thisFile) {
 		$thisResultArray = doesFileContainString($thisFile, $string); //iterate through all files and search for $string
 		if (count($thisResultArray) > 0) { //doesFileContainString returns an array, so a result is positive if it has any members on the array
 			$fileDirArray = extractDirectoryAndFile($thisFile);
 
-			$thisMDResult = markResultDown($fileDirArray['directory'], $fileDirArray['filename']); //convert the file to a markdown link
-			$resultArray[] = $thisMDResult;
+			$contextArray = array();
 			foreach ($thisResultArray as $thisResult) { //add context if there is any
-				if ($thisResult == 1 || $includeContext != 1) { //check to see if it is just dummy result or if context is even turned on
+				if ($thisResult == 1) { //check to see if it is just dummy result or if context is even turned on
 					continue;
 				}
-				$resultContext = "\t* `$thisResult`\n";
-				$resultArray[] = $resultContext;
+
+				$contextArray[] = $thisResult;
 			}
 
+			$thisSearchResult = new SearchResult($fileDirArray['filename'], $fileDirArray['directory'], $contextArray);
+			$objectArray[] = $thisSearchResult;
 		}
 	}
-	return $resultArray;
+
+	usort($objectArray, "sortSearchResultObjectArray"); //sort alphabetical results
+
+	return $objectArray;
 }
 
 function searchFilesForPermaLink($allMDFiles, $hash) {
@@ -73,7 +74,7 @@ function searchFilesForPermaLink($allMDFiles, $hash) {
 
 //// called on by file iterators to examine individual file contents
 
-function doesFileContainString($file, $string) { //returns an array of search results
+function doesFileContainString($file, $string) { //returns an array of results within a file or filename
 	$fileHandle = fopen($file, "r") or die("Unable to open file (string search): $file!");
 	$md = fread($fileHandle,filesize($file));
 	fclose($fileHandle);
@@ -88,7 +89,6 @@ function doesFileContainString($file, $string) { //returns an array of search re
 	$fnMatch = preg_match("/$string/im", $noBasePath, $output_array);
 	$match = preg_match("/.*$string.*/im", $md, $regexArray); // check if $file contains $string
 	$match = $match | $fnMatch; // Consider it matched whether it was in filename or file contents
-
 
 
 	if ($match) {
@@ -178,11 +178,18 @@ function formatPermalinkMetaTag($url) {
 	return $metatag;
 }
 
-function compileResultsToString($resultArray) {
+function compileSearchResultsToString($searchResultArray, $includeContext) { //operates on class objects
 	global $search;
 	$mdResults = "";
-	foreach ($resultArray as $thisResult) {
-		$mdResults .= $thisResult;
+	foreach ($searchResultArray as $thisSearchResult) {
+		$thisResultMD = createMarkdownFileLink($thisSearchResult->directory, $thisSearchResult->file);
+		$mdResults .= "* $thisResultMD\n";
+		if ($includeContext) {
+			$mdResults .= "\t* location: **$thisSearchResult->directory**\n";
+			foreach ($thisSearchResult->context as $thisContext) {
+				$mdResults .= "\t* $thisContext\n";
+			}
+		}
 	}
 	if ($mdResults == "") {
 		$mdResults = "No results found for '$search'.\n";
@@ -190,9 +197,10 @@ function compileResultsToString($resultArray) {
 	return $mdResults;
 }
 
-function markResultDown($directory, $filename) {
+
+function createMarkdownFileLink($directory, $filename) { //returns a markdown link of a provided file
 	$url = getFileURL($directory, $filename);
-	$thisMDResult = "* [$filename]($url)\n";
+	$thisMDResult = "[$filename]($url)";
 
 	return $thisMDResult;
 }
@@ -219,6 +227,26 @@ function confirmTrailingSlash ($pPath) {
 	}
 
 	return $tPath;
+}
+
+function sortSearchResultObjectArray($a, $b) {
+	return strcmp($a->file, $b->file);
+}
+
+
+//// search results class
+
+class SearchResult {
+    public $file;
+    public $directory;
+	public $context;
+
+	function __construct($file, $directory, $context = array()) {
+		$this->file = $file;
+		$this->directory = $directory;
+		$this->context = $context;
+	}
+
 }
 
 
