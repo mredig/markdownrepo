@@ -16,12 +16,16 @@ printSearchHTML();
 
 // generate page contents
 $Parsedown = new Parsedown(); //create Parsdown object
-if ($file != "") { // check if there is a file specified - if so, display contents. if not, show directory contents
-	$fileHandle = fopen($file, "r") or die("Unable to open file: $file!");
+if (!empty($file)) { // check if there is a file specified - if so, display contents. if not, show directory contents
+	$fileHandle = fopen($file, "r") or die("Unable to open file (main index page): $file!");
 	$md = fread($fileHandle,filesize($file));
 	fclose($fileHandle);
 
 	// print_r($md);
+
+	if (ENABLE_PERMALINKS) {
+		$permalink = checkForPermaLink($md, $file);
+	}
 
 	if (SHOW_FILENAME) {
 		$md = addFileName($md, $file);
@@ -35,7 +39,7 @@ if ($file != "") { // check if there is a file specified - if so, display conten
 	$fileSection = getFileList($mdFilesInCD, $apparentDirectory);
 	$md = "# " . DATA_STORE_NAME . "\n" . $folderSection . $fileSection;
 }
-$md = addWrappers($file, $md, $apparentDirectory);
+$md = addWrappers($file, $md, $apparentDirectory, $permalink);
 $mdOutput = $Parsedown->text($md);
 print "$mdOutput";
 
@@ -47,10 +51,9 @@ function processImageLinks($md, $apparentDirectory) {
 	return $newLine;
 }
 
-function addWrappers($filename, $md, $cd) {
-
+function checkForPermaLink($md, $filename) {
 	//permalink
-	if (ENABLE_PERMALINKS && $filename != "") {
+	if (ENABLE_PERMALINKS && !empty($filename)) {
 		$hash = checkPermalinkExists($md);
 		if ($hash == "0") {
 			$genhash = generatePermalinkHash($md);
@@ -66,7 +69,10 @@ function addWrappers($filename, $md, $cd) {
 		// }
 		$permalink = generatePermlink($hash);
 	}
+	return $permalink;
+}
 
+function addWrappers($filename, $md, $cd, $permalink) {
 
 	//breadcrumbs
 	$directory = $cd;
@@ -105,7 +111,7 @@ function addWrappers($filename, $md, $cd) {
 
 
 
-	$breadcrumbs = $breadcrumbs . "\n$md\n" . $dateString . $permalink . $breadcrumbs; //surround the imported md document with the breadcrumbs
+	$breadcrumbs = $breadcrumbs . "\n$md\n***\n" . $dateString . $permalink . $breadcrumbs; //surround the imported md document with the breadcrumbs
 
 	return $breadcrumbs;
 }
@@ -113,7 +119,7 @@ function addWrappers($filename, $md, $cd) {
 
 
 function getFileList($filesInCD, $currentDirectory) {
-	$string = "\n### Files:\n";
+
 	foreach($filesInCD as $thisFile) {
 		$dirLink = sanitizeURL($currentDirectory);
 		$fileLink = sanitizeURL($thisFile);
@@ -123,11 +129,16 @@ function getFileList($filesInCD, $currentDirectory) {
 		$thisFileString = "* [$thisFilePretty](?file=$fileLink&directory=$dirLink)\n";
 		$string = $string . $thisFileString;
 	}
+
+	if (!empty($string)) {
+		$string = "\n### Files:\n$string";
+	}
+
 	return $string;
 }
 
 function getFolderList($allFilesInCD, $currentDirectory) {
-	$string = "### Folders:\n";
+
 	foreach($allFilesInCD as $thisFile) {
 		if ($thisFile == "assets") {
 			continue;
@@ -137,6 +148,11 @@ function getFolderList($allFilesInCD, $currentDirectory) {
 			$string .= "#### [$thisFile](?directory=$dirLink)\n";
 		}
 	}
+
+	if (!empty($string)) {
+		$string = "### Folders:\n$string";
+	}
+
 	return $string;
 }
 

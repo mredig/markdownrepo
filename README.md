@@ -7,12 +7,14 @@ This is a read only method of viewing a repository full of md documents, powered
 * Live conversion of md to html
 * built in search
 * LIVE search
+	* with alphabetization!
 * works with an existing md repository
 * can display file modification date
 * permalink functionality without using a database or changing file modification dates
 
 ### Use cases
 * want to easily document procedures for yourself/others
+* have lots of markdown files for whatever reason you want to be able to read easily and search
 * and more!
 
 ### Installation
@@ -29,12 +31,12 @@ This is a read only method of viewing a repository full of md documents, powered
 	* `http://serveraddress/markdownrepo`
 
 ### Requirements
-* server running php
+* server running `php`
+	* and `php-mbstring`
 * browser
 * markdown files
 	* file extension must be lowercase
 
 ### Todo
-* alphabetize search results
-* refactor permalink to happen before any processing if it doesnt exist in doc yet (ruining image links)
 * create pop up link (next to permalink that makes it easy to pop out into new window)
+* modify search to search via space separated strings (instead of one, large, space inclusive string like it does currently)
