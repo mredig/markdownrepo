@@ -39,4 +39,3 @@ This is a read only method of viewing a repository full of md documents, powered
 
 ### Todo
 * create pop up link (next to permalink that makes it easy to pop out into new window)
-* modify search to search via space separated strings (instead of one, large, space inclusive string like it does currently)

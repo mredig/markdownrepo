@@ -85,20 +85,39 @@ function doesFileContainString($file, $string) { //returns an array of results w
 	$md = stripPermalink($md);
 	$md = preg_replace("/[\*|\`|\[|\]|\#]/im", "", $md); //remove special characters before search
 	$noBasePath = removeBaseFromPath($file);
+	$md = "$noBasePath\n\n$md";
 
-	$fnMatch = preg_match("/$string/im", $noBasePath, $output_array);
-	$match = preg_match("/.*$string.*/im", $md, $regexArray); // check if $file contains $string
-	$match = $match | $fnMatch; // Consider it matched whether it was in filename or file contents
+	$searchTerms = preg_split("/ /", $string, NULL, PREG_SPLIT_NO_EMPTY);
 
-
-	if ($match) {
-		$thisResultArray[] = 1; //so the return value has at least 1 result (if only the filename matches, there won't be any context result)
-		foreach ($regexArray as $foundResult) {
-			$thisResultArray[] = "..." . $foundResult . "..."; // wrap context in elipses
+	$termsMatched = 0;
+	$tempResultArray = array();
+	foreach ($searchTerms as $term) { // search string to find any matches
+		$thisTermMatch = preg_match("/.*$term.*/im", $md, $regexArray); // check if $file contains $term
+		if ($thisTermMatch) {
+			$termsMatched ++;
+			for ($i = 0; $i < count($regexArray); $i++) {
+				$tempResultArray[$regexArray[$i]] = 1; //value doens't matter... basically just creating a set
+			}
 		}
 	}
 
+	if ($termsMatched == count($searchTerms)) {
+		$contextArray = array();
+		foreach ($tempResultArray as $line => $value) {
+			$contextArray[] = $line;
+		}
 
+		foreach ($searchTerms as $term) { // bold the search terms in the results
+			for ($i = 0; $i < count($contextArray); $i++) {
+				$contextArray[$i] = preg_replace("/\**($term)\**/im", "**$1**", $contextArray[$i]);
+			}
+		}
+
+		$thisResultArray[] = 1; //so the return value has at least 1 result (if only the filename matches, there won't be any context result)
+		foreach ($contextArray as $foundResult) {
+			$thisResultArray[] = "..." . $foundResult . "..."; // wrap context in elipses
+		}
+	}
 
 	return $thisResultArray;
 }
