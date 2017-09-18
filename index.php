@@ -109,9 +109,15 @@ function addWrappers($filename, $md, $cd, $permalink) {
 		$dateString = "<p class='mdrTimestamp'>$dateString</p>\n";
 	}
 
+	if ($filename != "" && ENABLE_POPUPLINKS) {
+		$selfLink = "index.php?file=$filename&directory=$directory";
+		$popupLinkString = "<p class='mdrPermalink'><a href='$selfLink' onclick=\"window.open('$selfLink', '$filename', 'width=1024,height=768,status=yes,toolbar=yes,scrollbars=yes'); return false;\">popout article</a></p>";
+		// <a href="print.html"  onclick="window.open('print.html', 'newwindow', 'width=300,height=250'); return false;"> Print</a>
+
+	}
 
 
-	$breadcrumbs = $breadcrumbs . "\n$md\n***\n" . $dateString . $permalink . $breadcrumbs; //surround the imported md document with the breadcrumbs
+	$breadcrumbs = $breadcrumbs . "\n$md\n***\n" . $dateString . $popupLinkString . $permalink . $breadcrumbs; //surround the imported md document with the breadcrumbs
 
 	return $breadcrumbs;
 }

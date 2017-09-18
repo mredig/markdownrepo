@@ -1,5 +1,8 @@
 <?php
 
+//// copy this file to 'config.php' to customize. This one is used for defaults and new features.
+
+
 //absolute path to directory housing your md files (md should be lowercase in file names)
 define('MD_BASE_PATH', '.');
 
@@ -18,9 +21,15 @@ define('SHOW_FILENAME', 1);
 //permalinks - will require write access to the given directory (generates a unique hash for each file so files can be linked even after getting moved around and saves to the file)
 define('ENABLE_PERMALINKS', 1);
 
+//popuplinks
+define('ENABLE_POPUPLINKS', 1);
 
-ini_set('display_errors', 1);
+
+// ini_set('display_errors', 1); // leave this off when in production - useful for debugging, but will show errors from loading config
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+
+
 
 ?>

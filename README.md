@@ -11,6 +11,7 @@ This is a read only method of viewing a repository full of md documents, powered
 * works with an existing md repository
 * can display file modification date
 * permalink functionality without using a database or changing file modification dates
+* can popout article into new window for easier multitasking when referencing to the article while working in another tab
 
 ### Use cases
 * want to easily document procedures for yourself/others
