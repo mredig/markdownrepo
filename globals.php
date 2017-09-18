@@ -89,6 +89,7 @@ function printHeader($baseTitle, $extraTitle, $extraHeaderTags = "") { //also re
 	print '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		' . $extraHeaderTags . '
 		<link rel="stylesheet" media="screen" type="text/css" href="' . HTML_CSS_URL . '?v=1">
+		<link rel="stylesheet" media="print" type="text/css" href="' . HTML_CSS_URL . '?v=1">
 		<script>
 		function showResult(str) {
 		  if (str.length==0) {
