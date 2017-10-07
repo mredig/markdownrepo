@@ -12,6 +12,7 @@ This is a read only method of viewing a repository full of md documents, powered
 * can display file modification date
 * permalink functionality without using a database or changing file modification dates
 * can popout article into new window for easier multitasking when referencing to the article while working in another tab
+* [check out a live demo!](https://markdowndemo.redeggproductions.com)
 
 ### Use cases
 * want to easily document procedures for yourself/others
@@ -37,6 +38,3 @@ This is a read only method of viewing a repository full of md documents, powered
 * browser
 * markdown files
 	* file extension must be lowercase
-
-### Todo
-* create pop up link (next to permalink that makes it easy to pop out into new window)
