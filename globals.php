@@ -190,4 +190,15 @@ function saveFileInCD($file, $md, $withOutMod = 1) {
 	}
 }
 
+function getMarkdownDirectory() {
+	// global $mdAbsPath;
+	$cwd = getcwd(); //note current directory in case we aren't in base directory
+	$mdrDir = realpath(dirname(__FILE__)); //note directory that the markdown repo app resides in
+	chdir($mdrDir); //cd to mdr directory so that the MD_BASE_PATH is correct if relative
+	$mdAbsPath = realpath(MD_BASE_PATH); // get MD_BASE_PATH abs path
+	chdir($cwd); //return to directory we started in
+	return $mdAbsPath;
+}
+
+
 ?>
