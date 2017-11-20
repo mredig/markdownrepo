@@ -91,8 +91,8 @@ function printHeader($baseTitle, $extraTitle, $extraHeaderTags = "") { //also re
 	print "<html>\n<head>\n<title>$pageTitle</title>\n";
 	print '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		' . $extraHeaderTags . '
-		<link rel="stylesheet" media="screen" type="text/css" href="' . HTML_CSS_URL . '?v=1">
-		<link rel="stylesheet" media="print" type="text/css" href="' . HTML_CSS_URL . '?v=1">
+		<link rel="stylesheet" media="screen" type="text/css" href="' . HTML_CSS_URL . '?v=3">
+		<link rel="stylesheet" media="print" type="text/css" href="' . HTML_CSS_URL . '?v=3">
 		<script>
             var lastRequest = 0;
             var lastAttempt = 0;
@@ -219,5 +219,16 @@ function saveFileInCD($file, $md, $withOutMod = 1) {
 		touch($file, $prevTimestamp); //set back to original mod time
 	}
 }
+
+function getMarkdownDirectory() {
+	// global $mdAbsPath;
+	$cwd = getcwd(); //note current directory in case we aren't in base directory
+	$mdrDir = realpath(dirname(__FILE__)); //note directory that the markdown repo app resides in
+	chdir($mdrDir); //cd to mdr directory so that the MD_BASE_PATH is correct if relative
+	$mdAbsPath = realpath(MD_BASE_PATH); // get MD_BASE_PATH abs path
+	chdir($cwd); //return to directory we started in
+	return $mdAbsPath;
+}
+
 
 ?>

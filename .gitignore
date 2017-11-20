@@ -3,4 +3,6 @@ config.php
 vcss
 *.esproj
 favicon.ico
-
+stats/
+error/
+md/*

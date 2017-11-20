@@ -2,13 +2,14 @@
 
 
 html {
-	background-color: white;
+	background-color: #F5F5F5;
 }
 
 body {
 	width: 900px;
 	margin: 20px auto 200px;
-	font: 15pt "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	font: 11pt "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	color: #333;
 }
 
 .btn-default {
@@ -24,14 +25,15 @@ input.form-control {
 
 a:hover {
 	text-decoration: underline;
+	color: #3368CD;
 }
 a:active {
-	color: #645731;
+	color: #0D2E98;
 	text-decoration: none;
 }
 a {
 	text-decoration: none;
-	color: #151887;
+	color: #0F55B8;
 	font-family: "Helvetica Neue Light", "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
 
@@ -112,11 +114,14 @@ ol {
 
 code,pre {
 	font-family: "Courier New", Courier, mono;
+	background-color: #484848;
+	color: #D2D2D2;
 	padding: 7px;
 	margin: 3px;
-	border-radius: 20px;
 	display: inline-block;
-	max-width: 100%;
+	/*max-width: 100%;*/
+	border-color: white;
+	border-radius: 15px;
 	border-style: solid;
 	border-width: 1px;
 }
@@ -124,6 +129,7 @@ code,pre {
 pre code {
 	border-style: none;
 	max-width: 100%;
+	background-color: rgba(0,0,0,0);
 }
 
 
@@ -131,11 +137,13 @@ em {
 	font-style: italic;
 	opacity: 1;
 	font-family: "Helvetica Neue UltraLight", "Helvetica Neue Light", "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	color: #AA1414;
 }
 
 strong {
 	font-weight: bold;
 	font-style: italic;
+	color: #AA1414;
 }
 
 #markdownRepoLiveSearch {

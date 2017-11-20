@@ -6,8 +6,9 @@
 //// main functions
 function searchMain($search, $includeContext) {
 	global $allFolders;
-	$allFolders = array(MD_BASE_PATH);
-	getFolderListIn(MD_BASE_PATH);
+	$mdDir = getcwd();
+	$allFolders = array($mdDir);
+	getFolderListIn($mdDir);
 	$allMDFiles = getAllMDFiles();
 	$resultArray = searchFilesForString($allMDFiles, $search); //returns md string
 	$mdResults = compileSearchResultsToString($resultArray, $includeContext);
@@ -16,8 +17,9 @@ function searchMain($search, $includeContext) {
 
 function searchPermaLinks($hash) {
 	global $allFolders;
-	$allFolders = array(MD_BASE_PATH);
-	getFolderListIn(MD_BASE_PATH);
+	$mdDir = getcwd();
+	$allFolders = array($mdDir);
+	getFolderListIn($mdDir);
 	$allMDFiles = getAllMDFiles();
 	$permaResult = searchFilesForPermaLink($allMDFiles, $hash); //returns with directory and filename
 	$fileUrl = getFileURL($permaResult['directory'], $permaResult['filename']);
@@ -234,7 +236,10 @@ function getFileURL($directory, $filename) {
 function removeBaseFromPath($path) {
 	$basePath = MD_BASE_PATH; //convert to variable as we need to do some light editing to it
 	$basePath = preg_replace("/\//", "\\/", $basePath); //escape any forward slashes
+	$basePath2 = getMarkdownDirectory(); //if MD_BASE_PATH is a relative directory, we needed to previously convert it to an absolute path. This will result in a different string that still needs removal
+	$basePath2 = preg_replace("/\//", "\\/", $basePath2); //escape any forward slashes
 	$noBasePath = preg_replace("/$basePath/", "", $path); // remove base path from link
+	$noBasePath = preg_replace("/$basePath2/", "", $path); // remove base path from link
 	return $noBasePath;
 }
 
