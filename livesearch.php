@@ -3,7 +3,7 @@ require 'parsedown/Parsedown.php';
 require 'globals.php';
 require 'searchEngine.php';
 
-// chdir(MD_BASE_PATH);
+chdir(MD_BASE_PATH);
 global $currentDirectory, $file, $apparentDirectory, $search, $allFolders;
 // $allFolders = array(MD_BASE_PATH);
 checkGET();
