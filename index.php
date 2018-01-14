@@ -145,6 +145,7 @@ function getFileList($filesInCD, $currentDirectory) {
 
 function getFolderList($allFilesInCD, $currentDirectory) {
 
+	$string = "";
 	foreach($allFilesInCD as $thisFile) {
 		if ($thisFile == "assets") {
 			continue;
